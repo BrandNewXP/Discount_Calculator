@@ -68,7 +68,18 @@ public:
 class Calculator
 {
 public:
-  double discount_calculate(Promotion* promotion_list, Order order, double list_price)
+  double specific_calculate(Product* product_list, Order* order)
+  {
+    double discount_sum = 0;
+    for(int i = 0 ; i < MAX ; i++)
+    {
+      if(product_list[i].discount_amount > 0 && order->amount[i] > product_list[i].discount_amount)
+        discount_sum += product_list[i].discount_price * (order->amount[i] / product_list[i].discount_amount);
+    }
+    return discount_sum;
+  }
+
+  double discount_calculate(Promotion* promotion_list, Order* order, double list_price)
   {
     double discount_sum = 0;
     for(int i = 0 ; i < MAX ; i++)
@@ -91,24 +102,12 @@ public:
         }
         else // Obtain product
         {
-          return 1;
+          order->amount[-int(promotion_list[i].get)]++;
         }
-
       }
       discount_sum += discount;
     }
     return discount_sum; //discount_sum ;
-  }
-
-  double specific_calculate(Product* product_list, Order order)
-  {
-    double discount_sum = 0;
-    for(int i = 0 ; i < MAX ; i++)
-    {
-      if(product_list[i].discount_amount > 0 && order.amount[i] > product_list[i].discount_amount)
-        discount_sum += product_list[i].discount_price * (order.amount[i] / product_list[i].discount_amount);
-    }
-    return discount_sum;
   }
 };
 
@@ -201,11 +200,16 @@ int main(void)
         list_price += product_list[i].price * order_list[o].amount[i];
       }
     }
-    discount_amount = calc.discount_calculate(promotion_list, order_list[o], list_price)
-                    + calc.specific_calculate(product_list, order_list[o]);
-    cout << "Case " << o + 1 << " List price: " << list_price
-         << " Discount amount: " << discount_amount
-         << " Sale price: " << list_price - discount_amount << "\n";
+    discount_amount = calc.specific_calculate(product_list, &order_list[o])
+                    + calc.discount_calculate(promotion_list, &order_list[o], list_price) ;
+
+    cout << "Case " << o + 1 << ":\n  List price: " << list_price
+         << "\n  Discount amount: " << discount_amount
+         << "\n  Sale price: " << list_price - discount_amount
+         << "\n  Whole order:\n";
+    for(int i = 0 ; i < MAX ; i++)
+      if(order_list[o].amount[i] != 0)
+        cout << "    " << order_list[o].amount[i] << " Product #" <<  i << "\n";
   }
   //cout << calc.discount_calculate(order_list[0], 0) << "\n" ;
 
