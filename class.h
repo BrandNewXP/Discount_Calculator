@@ -25,6 +25,9 @@ public:
 
   int no_clear_limit; // #times
   double month_clear_limit; // #price
+  double month_used_limit = 0;
+
+  void new_month();
 };
 
 class Order
@@ -50,17 +53,6 @@ class User
 {
 public:
   int user_id = 0;
-
-  /* Record discount limits. */
-  int no_clear[MAX] = {0} ; // #times
-  double month_clear[MAX] = {0} ; // #price
-
-  /* Initial discount limits. */
-  void new_month()
-  {
-    for(int i = 0 ; i < MAX ; i++)
-      month_clear[i] = 0;
-  }
 };
 
 class Calculator
@@ -69,3 +61,5 @@ public:
   double specific_calculate(Product* product_list, Order* order);
   double discount_calculate(Promotion* promotion_list, Order* order, User* user, double list_price);
 };
+
+bool comp(Promotion l, Promotion r);

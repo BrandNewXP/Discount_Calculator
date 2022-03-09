@@ -2,10 +2,6 @@
 
 using namespace std;
 
-bool comp(Promotion l, Promotion r)
-{
-  return l.get > r.get;
-}
 
 int main(void)
 {
@@ -57,7 +53,6 @@ int main(void)
     iss >> order_list[itr].user_id;
     while(iss >> p_id >> p_amount)
     {
-      //cout << "THERE " << p_id << " " << p_amount << "\n" ;
       order_list[itr].amount[p_id] += p_amount;
     }
 
@@ -79,8 +74,10 @@ int main(void)
         >> product_list[p_id].discount_price ;
   }
 
-  Calculator calc;
+  // Initialize for every new month
+  for(int i = 0 ; i < MAX ; i++) promotion_list[i].new_month();
 
+  Calculator calc;
   for(int o = 0 ; o < order_amount ; o++)
   {
     double list_price = 0, discount_amount = 0;
@@ -102,6 +99,8 @@ int main(void)
     for(int i = 0 ; i < MAX ; i++)
       if(order_list[o].amount[i] != 0)
         cout << "    " << order_list[o].amount[i] << "x Product #" <<  i << "\n";
+        
+    cout << "\n";
   }
 
   promotion_file.close();

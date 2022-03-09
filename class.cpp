@@ -1,5 +1,10 @@
 #include "class.h"
 
+void Promotion::new_month()
+{
+  month_used_limit = 0;
+}
+
 double Calculator::specific_calculate(Product* product_list, Order* order)
 {
   double discount_sum = 0;
@@ -22,9 +27,18 @@ double Calculator::discount_calculate(Promotion* promotion_list, Order* order, U
     {
       if(promotion_list[i].get > 0) // Direct discount
       {
-        //no_clear month_clear
-        discount += promotion_list[i].get;
-
+        //No clear discount (# times)
+        if(promotion_list[i].no_clear_limit > 0)
+        {
+          promotion_list[i].no_clear_limit-- ;
+          discount += promotion_list[i].get;
+        }
+        //Monthly clear discount (# prices)
+        if(promotion_list[i].month_used_limit < promotion_list[i].month_clear_limit)
+        {
+          promotion_list[i].month_used_limit += promotion_list[i].get ;
+          discount += promotion_list[i].get;
+        }
       }
       else if(promotion_list[i].get == 0) // %off
       {
@@ -42,4 +56,9 @@ double Calculator::discount_calculate(Promotion* promotion_list, Order* order, U
     discount_sum += discount;
   }
   return discount_sum; //discount_sum ;
+}
+
+bool comp(Promotion l, Promotion r)
+{
+  return l.get > r.get;
 }

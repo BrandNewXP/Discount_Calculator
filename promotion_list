@@ -1,6 +1,6 @@
-// Format: promotion_id buy get  off off_limit no_clear_limit month_clear_limit
-           1            100 0    20  0         -1             -1
-           2            150 -1 0   0         -1             -1
-           3            200 30   0   0         5              -1
-//           4            777 0    10  100       -1             -1
-//           5            50  10   0   0         -1             25
+// Format: promotion_id buy  get  off off_limit no_clear_limit month_clear_limit
+           1            100  0    20  0         -1             -1
+           2            150  -1 0   0           -1             -1
+           3            200  30   0   0         5              -1
+           4            9999 0    10  100       -1             -1
+           5            50   10   0   0         -1             30
