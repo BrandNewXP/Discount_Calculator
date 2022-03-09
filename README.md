@@ -86,3 +86,16 @@ Case 3: User ID 3
   Discount amount: 764
   ...
 ```
+
+## Tests
+In class.cpp.
+```
+void Test_calculator::test_calc(Promotion* promotion_list, Order* order_list, Product* product_list, User* user_list)
+{
+  Calculator test_calc;
+  assert(test_calc.specific_calculate(&order_list[0], product_list) == 0);
+  assert(test_calc.specific_calculate(&order_list[4], product_list) == 25);
+  assert(test_calc.discount_calculate(promotion_list, &order_list[0], &user_list[order_list[0].user_id], 200) == 80);
+  assert(test_calc.discount_calculate(promotion_list, &order_list[4], &user_list[order_list[4].user_id], 656) == 171.2);
+}
+```
