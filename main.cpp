@@ -74,6 +74,11 @@ int main(void)
         >> product_list[p_id].discount_price ;
   }
 
+  // Test
+  Test_calculator test;
+  test.test_calc(promotion_list, order_list, product_list, user_list);
+  cerr << "\nTest done.\n\n";
+
   // Initialize for every new month
   for(int i = 0 ; i < MAX ; i++) promotion_list[i].new_month();
 
@@ -88,7 +93,7 @@ int main(void)
         list_price += product_list[i].price * order_list[o].amount[i];
       }
     }
-    discount_amount = calc.specific_calculate(product_list, &order_list[o])
+    discount_amount = calc.specific_calculate(&order_list[o], product_list)
                     + calc.discount_calculate(promotion_list, &order_list[o], &user_list[order_list[o].user_id], list_price) ;
 
     cout << "Case " << o + 1 << ": User ID " << order_list[o].user_id

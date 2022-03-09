@@ -5,7 +5,7 @@ void Promotion::new_month()
   month_used_limit = 0;
 }
 
-double Calculator::specific_calculate(Product* product_list, Order* order)
+double Calculator::specific_calculate(Order* order, Product* product_list)
 {
   double discount_sum = 0;
   for(int i = 0 ; i < MAX ; i++)
@@ -56,6 +56,15 @@ double Calculator::discount_calculate(Promotion* promotion_list, Order* order, U
     discount_sum += discount;
   }
   return discount_sum; //discount_sum ;
+}
+
+void Test_calculator::test_calc(Promotion* promotion_list, Order* order_list, Product* product_list, User* user_list)
+{
+  Calculator test_calc;
+  assert(test_calc.specific_calculate(&order_list[0], product_list) == 0);
+  assert(test_calc.specific_calculate(&order_list[4], product_list) == 25);
+  assert(test_calc.discount_calculate(promotion_list, &order_list[0], &user_list[order_list[0].user_id], 200) == 80);
+  assert(test_calc.discount_calculate(promotion_list, &order_list[4], &user_list[order_list[4].user_id], 656) == 171.2);
 }
 
 bool comp(Promotion l, Promotion r)

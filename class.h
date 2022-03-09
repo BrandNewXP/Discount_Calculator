@@ -4,6 +4,8 @@
 #include <string>
 #include <sstream>
 
+#include <assert.h>
+
 #define MAX 100
 #define STRING_LEN 20
 #define INF 2147483647
@@ -58,8 +60,14 @@ public:
 class Calculator
 {
 public:
-  double specific_calculate(Product* product_list, Order* order);
+  double specific_calculate(Order* order, Product* product_list);
   double discount_calculate(Promotion* promotion_list, Order* order, User* user, double list_price);
+};
+
+class Test_calculator
+{
+public:
+  void test_calc(Promotion* promotion_list, Order* order_list, Product* product_list, User* user_list);
 };
 
 bool comp(Promotion l, Promotion r);
