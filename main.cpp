@@ -11,10 +11,10 @@ int main(void)
   Product product_list[MAX];
 
   fstream promotion_file, user_file, order_file, product_file;
-  promotion_file.open("promotion_list");
-  user_file.open("user_list");
-  order_file.open("order_list");
-  product_file.open("product_list");
+  promotion_file.open("source/promotion_list");
+  order_file.open("source/order_list");
+  product_file.open("source/product_list");
+  user_file.open("source/user_list");
 
   string s;
   int order_amount = 0;
@@ -99,14 +99,14 @@ int main(void)
     for(int i = 0 ; i < MAX ; i++)
       if(order_list[o].amount[i] != 0)
         cout << "    " << order_list[o].amount[i] << "x Product #" <<  i << "\n";
-        
+
     cout << "\n";
   }
 
   promotion_file.close();
-  user_file.close();
   order_file.close();
   product_file.close();
+  user_file.close();
 
   return 0;
 }
